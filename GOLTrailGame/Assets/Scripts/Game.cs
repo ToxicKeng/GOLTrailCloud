@@ -13,7 +13,7 @@ public class Game : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlaceCells ();
+        PlaceCells();
     }
 
     // Update is called once per frame
@@ -44,73 +44,73 @@ public class Game : MonoBehaviour
         {
             for (var x = 0; x < SCREEN_WIDTH; x++)
             {
-                    int numNeighbors = 0;
+                int numNeighbors = 0;
 
-                    //- North
-                    if (y + 1 < SCREEN_HEIGHT)
+                //- North
+                if (y + 1 < SCREEN_HEIGHT)
+                {
+                    if (grid[x, y + 1].isAlive)
                     {
-                        if (grid[x, y + 1].isAlive)
-                        {
-                            numNeighbors++;
-                        }
+                        numNeighbors++;
                     }
-                    //-East
-                    if (x + 1 < SCREEN_WIDTH)
+                }
+                //-East
+                if (x + 1 < SCREEN_WIDTH)
+                {
+                    if (grid[x + 1, y].isAlive)
                     {
-                        if (grid[x + 1, y].isAlive)
-                        {
-                            numNeighbors++;
-                        }
+                        numNeighbors++;
                     }
-                    //-South
-                    if (y-1 >= 0)
+                }
+                //-South
+                if (y - 1 >= 0)
+                {
+                    if (grid[x, y - 1].isAlive)
                     {
-                        if (grid[x, y-1].isAlive)
-                        {
-                            numNeighbors++;
-                        }
+                        numNeighbors++;
                     }
-                    //-West
-                    if (x - 1 >= 0)
+                }
+                //-West
+                if (x - 1 >= 0)
+                {
+                    if (grid[x - 1, y].isAlive)
                     {
-                        if (grid[x-1, y].isAlive)
-                        {
-                            numNeighbors++;
-                        }
+                        numNeighbors++;
                     }
-                    //-NothEast
-                    if (x + 1 < SCREEN_WIDTH && y + 1 < SCREEN_HEIGHT)
+                }
+                //-NothEast
+                if (x + 1 < SCREEN_WIDTH && y + 1 < SCREEN_HEIGHT)
+                {
+                    if (grid[x + 1, y + 1].isAlive)
                     {
-                        if (grid[x + 1, y + 1].isAlive)
-                        {
-                            numNeighbors++;
-                        }
+                        numNeighbors++;
                     }
-                    //-NothWest
-                    if (x - 1 >= 0 && y + 1 < SCREEN_HEIGHT)
+                }
+                //-NothWest
+                if (x - 1 >= 0 && y + 1 < SCREEN_HEIGHT)
+                {
+                    if (grid[x - 1, y + 1])
                     {
-                        if (grid[x - 1, y + 1])
-                        {
-                            numNeighbors++;
-                        }
+                        numNeighbors++;
                     }
-                    //-SouthEast
-                    if (x + 1 < SCREEN_WIDTH && y - 1 >= 0)
+                }
+                //-SouthEast
+                if (x + 1 < SCREEN_WIDTH && y - 1 >= 0)
+                {
+                    if (grid[x + 1, y - 1].isAlive)
                     {
-                        if (grid[x + 1, y - 1].isAlive)
-                        {
-                            numNeighbors++;
-                        }
+                        numNeighbors++;
                     }
-                    //-SouthWest
-                    if (x - 1 >= 0 && y - 1 >= 0)
+                }
+                //-SouthWest
+                if (x - 1 >= 0 && y - 1 >= 0)
+                {
+                    if (grid[x - 1, y - 1].isAlive)
                     {
-                        if (grid[x - 1, y - 1].isAlive)
-                        {
-                            numNeighbors++;
-                        }
+                        numNeighbors++;
                     }
-                    grid[x, y].numNeighbors = numNeighbors;
+                }
+                grid[x, y].numNeighbors = numNeighbors;
 
             }
         }
@@ -130,7 +130,7 @@ public class Game : MonoBehaviour
                 if (grid[x, y].isAlive)
                 {
                     //-cell is Alive
-                    if (grid[x,y].numNeighbors != 2 && grid[x, y].numNeighbors != 3)
+                    if (grid[x, y].numNeighbors != 2 && grid[x, y].numNeighbors != 3)
                     {
                         grid[x, y].SetAlive(false);
                     }
@@ -147,15 +147,15 @@ public class Game : MonoBehaviour
         }
     }
 
-        bool RandomAliveCell()
-        {
-            int rand = UnityEngine.Random.Range(0, 100);
+    bool RandomAliveCell()
+    {
+        int rand = UnityEngine.Random.Range(0, 100);
 
-                if (rand > 75)
-            {
-                return true;
-            }
-            return false;
+        if (rand > 75)
+        {
+            return true;
         }
+        return false;
     }
+}
 
