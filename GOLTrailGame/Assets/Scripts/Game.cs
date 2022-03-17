@@ -116,7 +116,7 @@ public class Game : MonoBehaviour
         }
     }
 
-    void PopulationControl()//-15:30 into part 3 vid
+    void PopulationControl ()//-15:30 into part 3 vid
     {
         for (int y = 0; y < SCREEN_HEIGHT; y++)
         {
@@ -130,16 +130,17 @@ public class Game : MonoBehaviour
                 if (grid[x, y].isAlive)
                 {
                     //-cell is Alive
-                    if (grid[x, y].numNeighbors != 2 && grid[x, y].numNeighbors != 3)
+                    if (grid[x,y].numNeighbors != 2 && grid[x, y].numNeighbors != 3)
                     {
                         grid[x, y].SetAlive(false);
                     }
                     else
                     {
                         //-cell is dead
-                        if (grid[x, y].numNeighbors == 3)
+                        if (grid[x,y].numNeighbors == 3)
                         {
                             grid[x, y].SetAlive(true);
+                          
                         }
                     }
                 }
