@@ -8,20 +8,34 @@ public class Game : MonoBehaviour
     private static int SCREEN_WIDTH = 64;       //- 1024 pixels
     private static int SCREEN_HEIGHT = 48;      //- 768 pixels
 
+    [SerializeField] float IterationDelay = 0.5f;
     Cell[,] grid = new Cell[SCREEN_WIDTH, SCREEN_HEIGHT];
 
     // Start is called before the first frame update
     void Start()
     {
         PlaceCells();
+        StartCoroutine(start());
     }
 
     // Update is called once per frame
     void Update()
     {
-        CountNeighbors();
+        //CountNeighbors();
 
-        PopulationControl();
+        //PopulationControl();
+    }
+
+    IEnumerator start()
+    {
+        while(true)
+        {
+            CountNeighbors();
+
+            PopulationControl();
+
+            yield return new WaitForSeconds(IterationDelay);
+        }
     }
 
     void PlaceCells()
@@ -89,7 +103,7 @@ public class Game : MonoBehaviour
                 //-NothWest
                 if (x - 1 >= 0 && y + 1 < SCREEN_HEIGHT)
                 {
-                    if (grid[x-1,y+1])
+                    if (grid[x-1,y+1].isAlive)
                     {
                         numNeighbors++;
                     }
@@ -134,14 +148,15 @@ public class Game : MonoBehaviour
                     {
                         grid[x, y].SetAlive(false);
                     }
-                    else
+                    
+                }
+                else
+                {
+                    //-cell is dead
+                    if (grid[x, y].numNeighbors == 3)
                     {
-                        //-cell is dead
-                        if (grid[x,y].numNeighbors == 3)
-                        {
-                            grid[x, y].SetAlive(true);
-                          
-                        }
+                        grid[x, y].SetAlive(true);
+
                     }
                 }
             }
