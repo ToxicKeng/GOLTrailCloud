@@ -8,7 +8,7 @@ public class Game : MonoBehaviour
     private static int SCREEN_WIDTH = 64;       //- 1024 pixels
     private static int SCREEN_HEIGHT = 48;      //- 768 pixels
 
-    [SerializeField] float IterationDelay = 0.5f;
+    [SerializeField] float IterationDelay = 0.3f;
     Cell[,] grid = new Cell[SCREEN_WIDTH, SCREEN_HEIGHT];
 
     // Start is called before the first frame update
