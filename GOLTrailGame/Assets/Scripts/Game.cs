@@ -8,34 +8,77 @@ public class Game : MonoBehaviour
     private static int SCREEN_WIDTH = 64;       //- 1024 pixels
     private static int SCREEN_HEIGHT = 48;      //- 768 pixels
 
-    [SerializeField] float IterationDelay = 0.3f;
+    public float speed = 0.1f;
+
+    private float timer = 0;
+
+    public bool simulationEnabled = false;
+
+    //[SerializeField] float IterationDelay = 0.3f;
     Cell[,] grid = new Cell[SCREEN_WIDTH, SCREEN_HEIGHT];
 
     // Start is called before the first frame update
     void Start()
     {
         PlaceCells();
-        StartCoroutine(start());
     }
 
     // Update is called once per frame
     void Update()
     {
-        //CountNeighbors();
 
-        //PopulationControl();
+        if (simulationEnabled)
+        {
+            if (timer >= speed)
+            {
+                timer = 0f;
+                CountNeighbors();
+
+                PopulationControl();
+
+            }
+            else
+            {
+                timer += Time.deltaTime;
+            }
+        }
+        UserInput();
+       
+        
     }
 
-    IEnumerator start()
+
+   
+
+    void UserInput()
     {
-        while(true)
-        {
-            CountNeighbors();
+        if (Input.GetMouseButtonDown(0)) 
+        { 
+            Vector2 mousePoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            
+            int x = Mathf.RoundToInt(mousePoint.x);
+            int y = Mathf.RoundToInt(mousePoint.y);
 
-            PopulationControl();
-
-            yield return new WaitForSeconds(IterationDelay);
+            if(x >= 0 && y >= 0 && x < SCREEN_WIDTH && y < SCREEN_HEIGHT)
+            {
+                //-- we are in bounds
+                grid[x, y].SetAlive(!grid[x, y].isAlive);
+            }
         }
+        if (Input.GetKeyUp(KeyCode.P))
+        {
+            //-pause simultaion
+            simulationEnabled = false;
+
+        }
+
+        if (Input.GetKeyUp(KeyCode.B))
+        {
+            //build or resume simultaion
+            simulationEnabled = true;
+
+        }
+
     }
 
     void PlaceCells()
@@ -167,11 +210,11 @@ public class Game : MonoBehaviour
     {
         int rand = UnityEngine.Random.Range(0, 100);
 
-        if (rand > 75)
+        if (rand > 100)
         {
             return true;
         }
         return false;
-    }
+    } 
 }
 
