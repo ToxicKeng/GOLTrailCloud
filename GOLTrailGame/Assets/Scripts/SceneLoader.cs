@@ -10,6 +10,11 @@ public class SceneLoader : MonoBehaviour
         SceneManager.LoadScene("GOL");
     }
 
+    public void LoadMenu()
+    {
+        SceneManager.LoadScene("UserInterface");
+    }
+
     public void QuitGame()
     {
         Application.Quit();
