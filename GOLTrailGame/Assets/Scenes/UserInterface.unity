@@ -645,14 +645,14 @@ RectTransform:
   m_GameObject: {fileID: 722229547}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 12, y: 9, z: 1}
+  m_LocalScale: {x: 11, y: 8, z: 1}
   m_Children: []
   m_Father: {fileID: 1342858651}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 512, y: 570}
+  m_AnchoredPosition: {x: 512, y: 500}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &722229549
@@ -675,7 +675,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 77b5f188974a37a4cae166fa812932ab, type: 3}
+  m_Sprite: {fileID: 21300000, guid: de002f0039bd74b4b8a535c0b3356add, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1171,7 +1171,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -1442,14 +1442,14 @@ RectTransform:
   m_GameObject: {fileID: 1602952841}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 1}
   m_Children: []
   m_Father: {fileID: 1459009100}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 510.73703, y: 397.2399}
+  m_AnchoredPosition: {x: 510.73703, y: 420}
   m_SizeDelta: {x: 722.0728, y: 421.593}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1602952843
@@ -1483,12 +1483,14 @@ MonoBehaviour:
     Any live cell with 1 or less cells  surrounding it will die.
 
     - Any live
-    cell with 4 or more cells durrounding it will die.
+    cell with 4 or more cells surrounding it will die.
 
     - Press B to start evolution
 
     -
-    Pree P to pause the evolution'
+    Press P to pause the evolution
+
+    - Press R to reset the simulation'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1497,7 +1499,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3

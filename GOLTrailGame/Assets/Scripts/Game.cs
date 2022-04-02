@@ -78,6 +78,23 @@ public class Game : MonoBehaviour
             simulationEnabled = true;
 
         }
+        //Some code I wrote myself to reset the simulation
+        for (int y = 0; y < SCREEN_HEIGHT; y++)
+        {
+            for (int x = 0; x < SCREEN_WIDTH; x++)
+            {
+
+
+                if (grid[x, y].isAlive)
+                {
+                    if (Input.GetKeyUp(KeyCode.R))
+                    {
+                        grid[x, y].SetAlive(false);
+                    }
+
+                }
+            }
+        }
 
     }
 
@@ -206,15 +223,18 @@ public class Game : MonoBehaviour
         }
     }
 
-    bool RandomAliveCell()
+     bool RandomAliveCell()
     {
+        
         int rand = UnityEngine.Random.Range(0, 100);
 
         if (rand > 100)
         {
             return true;
         }
-        return false;
-    } 
+        return false; 
+    }
+
+   
 }
 
