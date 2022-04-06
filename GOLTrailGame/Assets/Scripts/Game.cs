@@ -14,6 +14,9 @@ public class Game : MonoBehaviour
 
     public bool simulationEnabled = false;
 
+
+    List<Cell> yellowCells = new List<Cell>();
+
     //public Sprite yellowSprite;
 
 
@@ -66,6 +69,9 @@ public class Game : MonoBehaviour
             {
                 //-- we are in bounds
                 grid[x, y].SetAlive(!grid[x, y].isAlive);
+                if(grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow")) {
+                    grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Red");
+                }
             }
         }
         if (Input.GetKeyUp(KeyCode.P))
@@ -94,6 +100,7 @@ public class Game : MonoBehaviour
                     {
                         grid[x, y].SetAlive(false);
                         grid[x, y].GetComponent<SpriteRenderer>().enabled = false;
+                        RemoveYellowCells();
                     }
 
                 }
@@ -211,6 +218,7 @@ public class Game : MonoBehaviour
 
                 if (grid[x, y].isAlive)
                 {
+
                     //-cell is Alive
                     if (grid[x,y].numNeighbors != 2 && grid[x, y].numNeighbors != 3)
                     {
@@ -218,7 +226,8 @@ public class Game : MonoBehaviour
 
                         grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow");
                         grid[x, y].GetComponent<SpriteRenderer>().enabled = true;
-                        print(grid[x, y].GetComponent<SpriteRenderer>().sprite.name);
+                        yellowCells.Add(grid[x, y]);
+                        //print(grid[x, y].GetComponent<SpriteRenderer>().sprite.name);
 
                         //GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow");
 
@@ -229,6 +238,9 @@ public class Game : MonoBehaviour
 
                         //this.gameObject.GetComponent<SpriteRenderer>().sprite = yellowSprite;
 
+                    } else
+                    {
+                        grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Red");
                     }
                     
                 }
@@ -239,7 +251,8 @@ public class Game : MonoBehaviour
                     if (grid[x, y].numNeighbors == 3)
                     {
                         grid[x, y].SetAlive(true);
-                        
+                        grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Red");
+
                     }
                 }
             }
@@ -258,6 +271,16 @@ public class Game : MonoBehaviour
         return false; 
     }
 
+
+    private void RemoveYellowCells()
+    {
+        for(int i = 0; i < yellowCells.Count; i++)
+        {
+            yellowCells[i].GetComponent<SpriteRenderer>().enabled = false;
+        }
+        //print("loop done");
+        yellowCells.Clear();
+    }
    
 }
 
