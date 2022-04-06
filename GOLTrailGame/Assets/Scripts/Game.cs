@@ -14,6 +14,9 @@ public class Game : MonoBehaviour
 
     public bool simulationEnabled = false;
 
+    //public Sprite yellowSprite;
+
+
     //[SerializeField] float IterationDelay = 0.3f;
     Cell[,] grid = new Cell[SCREEN_WIDTH, SCREEN_HEIGHT];
 
@@ -90,6 +93,7 @@ public class Game : MonoBehaviour
                     if (Input.GetKeyUp(KeyCode.R))
                     {
                         grid[x, y].SetAlive(false);
+                        grid[x, y].GetComponent<SpriteRenderer>().enabled = false;
                     }
 
                 }
@@ -105,8 +109,12 @@ public class Game : MonoBehaviour
             for (int x = 0; x < SCREEN_WIDTH; x++)
             {
                 Cell cell = Instantiate(Resources.Load("Prefabs/Cell", typeof(Cell)), new Vector2(x, y), Quaternion.identity) as Cell;
-                grid[x, y] = cell;
+                 grid[x, y] = cell;
                 grid[x, y].SetAlive(RandomAliveCell());
+
+                //DeadCell Deadcell = Instantiate(Resources.Load("Prefabs/Yellow16x16", typeof(DeadCell)), new Vector2(x, y), Quaternion.identity) as DeadCell;
+                
+
             }
         }
     }
@@ -207,16 +215,31 @@ public class Game : MonoBehaviour
                     if (grid[x,y].numNeighbors != 2 && grid[x, y].numNeighbors != 3)
                     {
                         grid[x, y].SetAlive(false);
+
+                        grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow");
+                        grid[x, y].GetComponent<SpriteRenderer>().enabled = true;
+                        print(grid[x, y].GetComponent<SpriteRenderer>().sprite.name);
+
+                        //GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow");
+
+                        //grid[x, y].SetDead(true);
+
+                        //8iplace(Cell, DeadCell);
+
+
+                        //this.gameObject.GetComponent<SpriteRenderer>().sprite = yellowSprite;
+
                     }
                     
                 }
                 else
                 {
+                    
                     //-cell is dead
                     if (grid[x, y].numNeighbors == 3)
                     {
                         grid[x, y].SetAlive(true);
-
+                        
                     }
                 }
             }
