@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: f8f2a7bb95cca874f85d770b6d2e8a72
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Sportypo
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 40df72bc27c057e4e9bd7316deb74c0d, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
