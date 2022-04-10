@@ -92,17 +92,14 @@ public class Game : MonoBehaviour
         {
             for (int x = 0; x < SCREEN_WIDTH; x++)
             {
-
-
-                if (grid[x, y].isAlive)
+                if (Input.GetKeyUp(KeyCode.R))
                 {
-                    if (Input.GetKeyUp(KeyCode.R))
+                    if (grid[x, y].isAlive)
                     {
                         grid[x, y].SetAlive(false);
                         grid[x, y].GetComponent<SpriteRenderer>().enabled = false;
-                        RemoveYellowCells();
                     }
-
+                    RemoveYellowCells();
                 }
             }
         }
