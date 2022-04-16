@@ -14,6 +14,10 @@ public class Game : MonoBehaviour
 
     public bool simulationEnabled = false;
 
+    
+
+
+
 
     List<Cell> yellowCells = new List<Cell>();
 
@@ -26,7 +30,8 @@ public class Game : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlaceCells();
+        PlaceCells(1);
+        
     }
 
     // Update is called once per frame
@@ -106,25 +111,109 @@ public class Game : MonoBehaviour
 
     }
 
-    void PlaceCells()
+    void PlaceCells(int type)
+    {
+        //Nothing
+        if(type == 1)
+        {
+            for (int y = 0; y < SCREEN_HEIGHT; y++)
+            {
+                for (int x = 0; x < SCREEN_WIDTH; x++)
+                {
+                    Cell cell = Instantiate(Resources.Load("Prefabs/Cell", typeof(Cell)), new Vector2(x, y), Quaternion.identity) as Cell;
+                    grid[x, y] = cell;
+                    grid[x, y].SetAlive(false);
+                    
+                    
+                }
+            }
+        }
+        //Random
+        if (type == 2)
+        {
+            for (int y = 0; y < SCREEN_HEIGHT; y++)
+            {
+                for (int x = 0; x < SCREEN_WIDTH; x++)
+                {
+                    Cell cell = Instantiate(Resources.Load("Prefabs/Cell", typeof(Cell)), new Vector2(x, y), Quaternion.identity) as Cell;
+                    grid[x, y] = cell;
+                    grid[x, y].SetAlive(false);
+
+                    int rand = UnityEngine.Random.Range(0, 100);
+
+                    if (rand > 75)
+                    {
+                        grid[x, y].SetAlive(true);
+                    }
+                }
+            }
+        }
+        //Kite
+        if (type == 3)
+        {
+            for (int y = 0; y < SCREEN_HEIGHT; y++)
+            {
+                for (int x = 0; x < SCREEN_WIDTH; x++)
+                {
+                    Cell cell = Instantiate(Resources.Load("Prefabs/Cell", typeof(Cell)), new Vector2(x, y), Quaternion.identity) as Cell;
+                    grid[x, y] = cell;
+                    grid[x, y].SetAlive(false);
+
+                    //DeadCell Deadcell = Instantiate(Resources.Load("Prefabs/Yellow16x16", typeof(DeadCell)), new Vector2(x, y), Quaternion.identity) as DeadCell;
+
+
+                }
+            }
+
+            for (int y = 21; y < 24; y++)
+            {
+                for (int x = 30; x < 33; x++)
+                {
+                    if (x != 33)
+                    {
+                        if (y == 21 || y == 23 && ((x != 30) && (x != 32)) || y == 22 && ((x != 30) && (x != 31)))
+                        {
+                            grid[x, y].SetAlive(true);
+                        }
+                        /*else if (y == 22 && ((x != 31) && (x != 35)))
+                        {
+                            grid[x, y].SetAlive(true);
+                        }*/
+
+                    }
+                }
+            }
+
+
+        }
+        
+    }
+    public void PresetInputData(int val)
     {
         for (int y = 0; y < SCREEN_HEIGHT; y++)
         {
             for (int x = 0; x < SCREEN_WIDTH; x++)
             {
-                Cell cell = Instantiate(Resources.Load("Prefabs/Cell", typeof(Cell)), new Vector2(x, y), Quaternion.identity) as Cell;
-                 grid[x, y] = cell;
-                grid[x, y].SetAlive(RandomAliveCell());
-
-                //DeadCell Deadcell = Instantiate(Resources.Load("Prefabs/Yellow16x16", typeof(DeadCell)), new Vector2(x, y), Quaternion.identity) as DeadCell;
-                
-
+                if (val == 0)
+                {
+                    grid[x, y].SetAlive(false);
+                    PlaceCells(1);
+                }
+                if (val == 1)
+                {
+                    grid[x, y].SetAlive(false);
+                    PlaceCells(2);
+                }
+                if (val == 2)
+                {
+                    grid[x, y].SetAlive(false);
+                    PlaceCells(3);
+                }
             }
         }
     }
 
-
-    void CountNeighbors()
+        void CountNeighbors()
     {
         for (int y = 0; y < SCREEN_HEIGHT; y++)
         {
@@ -224,6 +313,14 @@ public class Game : MonoBehaviour
                         grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow");
                         grid[x, y].GetComponent<SpriteRenderer>().enabled = true;
                         yellowCells.Add(grid[x, y]);
+
+                        /*if (grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow"))
+                        {
+                            Invoke("yellow25", 1f);
+
+
+
+                        }*/
                         //print(grid[x, y].GetComponent<SpriteRenderer>().sprite.name);
 
                         //GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow");
@@ -256,12 +353,25 @@ public class Game : MonoBehaviour
         }
     }
 
-     bool RandomAliveCell()
+   /* void yellow25()
+    {
+        for (int y = 0; y < SCREEN_HEIGHT; y++)
+        {
+            for (int x = 0; x < SCREEN_WIDTH; x++)
+            {
+                grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow25");
+                grid[x, y].GetComponent<SpriteRenderer>().enabled = true;
+                //yellowCells.Add(grid[x, y]);
+            }
+        }
+    }*/
+
+    bool RandomAliveCell()
     {
         
         int rand = UnityEngine.Random.Range(0, 100);
 
-        if (rand > 100)
+        if (rand > 75)
         {
             return true;
         }
