@@ -30,8 +30,8 @@ public class Game : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         PlaceCells(1);
-        
     }
 
     // Update is called once per frame
@@ -47,6 +47,7 @@ public class Game : MonoBehaviour
 
                 PopulationControl();
 
+                
             }
             else
             {
@@ -190,27 +191,19 @@ public class Game : MonoBehaviour
     }
     public void PresetInputData(int val)
     {
-        for (int y = 0; y < SCREEN_HEIGHT; y++)
-        {
-            for (int x = 0; x < SCREEN_WIDTH; x++)
-            {
                 if (val == 0)
                 {
-                    grid[x, y].SetAlive(false);
                     PlaceCells(1);
                 }
                 if (val == 1)
                 {
-                    grid[x, y].SetAlive(false);
                     PlaceCells(2);
                 }
                 if (val == 2)
                 {
-                    grid[x, y].SetAlive(false);
                     PlaceCells(3);
                 }
-            }
-        }
+        
     }
 
         void CountNeighbors()
