@@ -127,6 +127,7 @@ public class Game : MonoBehaviour
                     
                     
                 }
+                
             }
         }
         //Random
@@ -136,6 +137,7 @@ public class Game : MonoBehaviour
             {
                 for (int x = 0; x < SCREEN_WIDTH; x++)
                 {
+                    RemoveYellowCells();
                     Cell cell = Instantiate(Resources.Load("Prefabs/Cell", typeof(Cell)), new Vector2(x, y), Quaternion.identity) as Cell;
                     grid[x, y] = cell;
                     grid[x, y].SetAlive(false);
@@ -146,6 +148,8 @@ public class Game : MonoBehaviour
                     {
                         grid[x, y].SetAlive(true);
                     }
+                    
+                    
                 }
             }
         }
@@ -156,6 +160,7 @@ public class Game : MonoBehaviour
             {
                 for (int x = 0; x < SCREEN_WIDTH; x++)
                 {
+                
                     Cell cell = Instantiate(Resources.Load("Prefabs/Cell", typeof(Cell)), new Vector2(x, y), Quaternion.identity) as Cell;
                     grid[x, y] = cell;
                     grid[x, y].SetAlive(false);
@@ -187,24 +192,115 @@ public class Game : MonoBehaviour
 
 
         }
-        
+
+
+        if (type == 4)
+        {
+            for (int y = 0; y < SCREEN_HEIGHT; y++)
+            {
+                for (int x = 0; x < SCREEN_WIDTH; x++)
+                {
+
+                    Cell cell = Instantiate(Resources.Load("Prefabs/Cell", typeof(Cell)), new Vector2(x, y), Quaternion.identity) as Cell;
+                    grid[x, y] = cell;
+                    grid[x, y].SetAlive(false);
+
+                    //DeadCell Deadcell = Instantiate(Resources.Load("Prefabs/Yellow16x16", typeof(DeadCell)), new Vector2(x, y), Quaternion.identity) as DeadCell;
+
+
+                }
+            }
+
+            for (int y = 21; y < 22; y++)
+            {
+                for (int x = 30; x < 33; x++)
+                {
+                    if (x != 33)
+                    {
+                        if (y == 21)
+                        {
+                            grid[x, y].SetAlive(true);
+                        }
+                        /*else if (y == 22 && ((x != 31) && (x != 35)))
+                        {
+                            grid[x, y].SetAlive(true);
+                        }*/
+
+                    }
+                }
+            }
+
+
+        }
+
+        if (type == 5)
+        {
+            for (int y = 0; y < SCREEN_HEIGHT; y++)
+            {
+                for (int x = 0; x < SCREEN_WIDTH; x++)
+                {
+
+                    Cell cell = Instantiate(Resources.Load("Prefabs/Cell", typeof(Cell)), new Vector2(x, y), Quaternion.identity) as Cell;
+                    grid[x, y] = cell;
+                    grid[x, y].SetAlive(false);
+
+                    //DeadCell Deadcell = Instantiate(Resources.Load("Prefabs/Yellow16x16", typeof(DeadCell)), new Vector2(x, y), Quaternion.identity) as DeadCell;
+
+
+                }
+            }
+
+            for (int y = 21; y < 23; y++)
+            {
+                for (int x = 32; x < 36; x++)
+                {
+                    
+                        if (y == 21 && (x != 35) || y == 22 && (x != 32))
+                        {
+                            grid[x, y].SetAlive(true);
+                        }
+                        /*else if (y == 22 && ((x != 31) && (x != 35)))
+                        {
+                            grid[x, y].SetAlive(true);
+                        }*/
+
+                    
+                }
+            }
+
+
+        }
+
     }
-    public void PresetInputData(int val)
+     public void PresetInputData(int val)
     {
                 if (val == 0)
                 {
                     PlaceCells(1);
+                    
                 }
                 if (val == 1)
                 {
-                    PlaceCells(2);
+                    
+                     PlaceCells(2);
                 }
                 if (val == 2)
                 {
+
                     PlaceCells(3);
                 }
-        
-    }
+                if (val == 3)
+                {
+
+                    PlaceCells(4);
+                }
+                if (val == 4)
+                {
+
+                    PlaceCells(5);
+                }
+
+    } 
 
         void CountNeighbors()
     {
