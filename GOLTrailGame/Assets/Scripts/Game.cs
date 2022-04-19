@@ -270,6 +270,37 @@ public class Game : MonoBehaviour
 
 
         }
+        if (type == 6)
+        {
+            for (int y = 0; y < SCREEN_HEIGHT; y++)
+            {
+                for (int x = 0; x < SCREEN_WIDTH; x++)
+                {
+
+                    Cell cell = Instantiate(Resources.Load("Prefabs/Cell", typeof(Cell)), new Vector2(x, y), Quaternion.identity) as Cell;
+                    grid[x, y] = cell;
+                    grid[x, y].SetAlive(false);
+
+                    
+                }
+            }
+
+            for (int y = 21; y < 25; y++)
+            {
+                for (int x = 30; x < 34; x++)
+                {
+                 
+                    if (y == 21 && (x < 32) || y == 22 && (x < 32) || y == 23 && (x > 31) || y == 24 && (x > 31))
+                    {
+                        grid[x, y].SetAlive(true);
+                    }
+
+                    
+                }
+            }
+
+
+        }
 
     }
      public void PresetInputData(int val)
@@ -298,6 +329,11 @@ public class Game : MonoBehaviour
                 {
 
                     PlaceCells(5);
+                }
+                if (val == 5)
+                {
+
+                    PlaceCells(6);
                 }
 
     } 
