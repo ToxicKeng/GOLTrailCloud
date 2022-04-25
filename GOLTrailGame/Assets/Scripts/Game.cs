@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Game : MonoBehaviour
 {
 
@@ -14,25 +15,20 @@ public class Game : MonoBehaviour
 
     public bool simulationEnabled = false;
 
-    
-
-
-
-
     List<Cell> yellowCells = new List<Cell>();
 
-    //public Sprite yellowSprite;
 
-
-    //[SerializeField] float IterationDelay = 0.3f;
     Cell[,] grid = new Cell[SCREEN_WIDTH, SCREEN_HEIGHT];
+
 
     // Start is called before the first frame update
     void Start()
     {
 
         PlaceCells(1);
+
     }
+
 
     // Update is called once per frame
     void Update()
@@ -43,20 +39,20 @@ public class Game : MonoBehaviour
             if (timer >= speed)
             {
                 timer = 0f;
+                
                 CountNeighbors();
-
                 PopulationControl();
-
                 
             }
             else
             {
                 timer += Time.deltaTime;
+
             }
         }
         UserInput();
-       
-        
+
+
     }
 
 
@@ -93,7 +89,7 @@ public class Game : MonoBehaviour
             simulationEnabled = true;
 
         }
-        //Some code I wrote myself to reset the simulation
+        //Reset
         for (int y = 0; y < SCREEN_HEIGHT; y++)
         {
             for (int x = 0; x < SCREEN_WIDTH; x++)
@@ -114,8 +110,9 @@ public class Game : MonoBehaviour
 
     void PlaceCells(int type)
     {
+        
         //Nothing
-        if(type == 1)
+        if (type == 1)
         {
             for (int y = 0; y < SCREEN_HEIGHT; y++)
             {
@@ -124,10 +121,10 @@ public class Game : MonoBehaviour
                     Cell cell = Instantiate(Resources.Load("Prefabs/Cell", typeof(Cell)), new Vector2(x, y), Quaternion.identity) as Cell;
                     grid[x, y] = cell;
                     grid[x, y].SetAlive(false);
-                    
-                    
+
+
                 }
-                
+
             }
         }
         //Random
@@ -137,10 +134,6 @@ public class Game : MonoBehaviour
             {
                 for (int x = 0; x < SCREEN_WIDTH; x++)
                 {
-                    RemoveYellowCells();
-                    Cell cell = Instantiate(Resources.Load("Prefabs/Cell", typeof(Cell)), new Vector2(x, y), Quaternion.identity) as Cell;
-                    grid[x, y] = cell;
-                    grid[x, y].SetAlive(false);
 
                     int rand = UnityEngine.Random.Range(0, 100);
 
@@ -156,21 +149,8 @@ public class Game : MonoBehaviour
         //Kite
         if (type == 3)
         {
-            for (int y = 0; y < SCREEN_HEIGHT; y++)
-            {
-                for (int x = 0; x < SCREEN_WIDTH; x++)
-                {
-                
-                    Cell cell = Instantiate(Resources.Load("Prefabs/Cell", typeof(Cell)), new Vector2(x, y), Quaternion.identity) as Cell;
-                    grid[x, y] = cell;
-                    grid[x, y].SetAlive(false);
 
-                    //DeadCell Deadcell = Instantiate(Resources.Load("Prefabs/Yellow16x16", typeof(DeadCell)), new Vector2(x, y), Quaternion.identity) as DeadCell;
-
-
-                }
-            }
-
+           
             for (int y = 21; y < 24; y++)
             {
                 for (int x = 30; x < 33; x++)
@@ -181,10 +161,6 @@ public class Game : MonoBehaviour
                         {
                             grid[x, y].SetAlive(true);
                         }
-                        /*else if (y == 22 && ((x != 31) && (x != 35)))
-                        {
-                            grid[x, y].SetAlive(true);
-                        }*/
 
                     }
                 }
@@ -193,23 +169,9 @@ public class Game : MonoBehaviour
 
         }
 
-
+        //Blinker
         if (type == 4)
         {
-            for (int y = 0; y < SCREEN_HEIGHT; y++)
-            {
-                for (int x = 0; x < SCREEN_WIDTH; x++)
-                {
-
-                    Cell cell = Instantiate(Resources.Load("Prefabs/Cell", typeof(Cell)), new Vector2(x, y), Quaternion.identity) as Cell;
-                    grid[x, y] = cell;
-                    grid[x, y].SetAlive(false);
-
-                    //DeadCell Deadcell = Instantiate(Resources.Load("Prefabs/Yellow16x16", typeof(DeadCell)), new Vector2(x, y), Quaternion.identity) as DeadCell;
-
-
-                }
-            }
 
             for (int y = 21; y < 22; y++)
             {
@@ -221,34 +183,15 @@ public class Game : MonoBehaviour
                         {
                             grid[x, y].SetAlive(true);
                         }
-                        /*else if (y == 22 && ((x != 31) && (x != 35)))
-                        {
-                            grid[x, y].SetAlive(true);
-                        }*/
-
                     }
                 }
             }
 
 
         }
-
+        //Toad
         if (type == 5)
         {
-            for (int y = 0; y < SCREEN_HEIGHT; y++)
-            {
-                for (int x = 0; x < SCREEN_WIDTH; x++)
-                {
-
-                    Cell cell = Instantiate(Resources.Load("Prefabs/Cell", typeof(Cell)), new Vector2(x, y), Quaternion.identity) as Cell;
-                    grid[x, y] = cell;
-                    grid[x, y].SetAlive(false);
-
-                    //DeadCell Deadcell = Instantiate(Resources.Load("Prefabs/Yellow16x16", typeof(DeadCell)), new Vector2(x, y), Quaternion.identity) as DeadCell;
-
-
-                }
-            }
 
             for (int y = 21; y < 23; y++)
             {
@@ -259,11 +202,24 @@ public class Game : MonoBehaviour
                         {
                             grid[x, y].SetAlive(true);
                         }
-                        /*else if (y == 22 && ((x != 31) && (x != 35)))
+                }
+            }
+
+
+        }
+        //Space Ship
+        if (type == 6)
+        {
+
+            for (int y = 21; y < 25; y++)
+            {
+                for (int x = 30; x < 35; x++)
+                {
+                   
+                        if (y == 21 && (x != 34) || y == 22 &&(x != 31 && x != 32 && x != 33) || x == 30 && (y != 24) || y == 24 && (x != 30 && x != 32 && x != 33))
                         {
                             grid[x, y].SetAlive(true);
-                        }*/
-
+                        }
                     
                 }
             }
@@ -272,35 +228,113 @@ public class Game : MonoBehaviour
         }
 
     }
-     public void PresetInputData(int val)
+    
+    public void PresetInputData(int val)
     {
-                if (val == 0)
+                /*if (val == 0)
                 {
                     PlaceCells(1);
                     
-                }
+                }*/
+               
                 if (val == 1)
                 {
-                    
-                     PlaceCells(2);
+            for (int y = 0; y < SCREEN_HEIGHT; y++)
+            {
+                for (int x = 0; x < SCREEN_WIDTH; x++)
+                {
+
+                    if (grid[x, y].isAlive)
+                    {
+                        grid[x, y].SetAlive(false);
+                        grid[x, y].GetComponent<SpriteRenderer>().enabled = false;
+                    }
+                    RemoveYellowCells();
+
                 }
+            }
+            PlaceCells(2);
+                    
+                }
+
                 if (val == 2)
                 {
-
-                    PlaceCells(3);
-                }
-                if (val == 3)
+            for (int y = 0; y < SCREEN_HEIGHT; y++)
+            {
+                for (int x = 0; x < SCREEN_WIDTH; x++)
                 {
 
-                    PlaceCells(4);
+                    if (grid[x, y].isAlive)
+                    {
+                        grid[x, y].SetAlive(false);
+                        grid[x, y].GetComponent<SpriteRenderer>().enabled = false;
+                    }
+                    RemoveYellowCells();
+
+                }
+            }
+            PlaceCells(3);
+                }
+                
+                if (val == 3)
+                {
+            for (int y = 0; y < SCREEN_HEIGHT; y++)
+            {
+                for (int x = 0; x < SCREEN_WIDTH; x++)
+                {
+
+                    if (grid[x, y].isAlive)
+                    {
+                        grid[x, y].SetAlive(false);
+                        grid[x, y].GetComponent<SpriteRenderer>().enabled = false;
+                    }
+                    RemoveYellowCells();
+
+                }
+            }
+
+            PlaceCells(4);
                 }
                 if (val == 4)
                 {
+            for (int y = 0; y < SCREEN_HEIGHT; y++)
+            {
+                for (int x = 0; x < SCREEN_WIDTH; x++)
+                {
 
-                    PlaceCells(5);
+                    if (grid[x, y].isAlive)
+                    {
+                        grid[x, y].SetAlive(false);
+                        grid[x, y].GetComponent<SpriteRenderer>().enabled = false;
+                    }
+                    RemoveYellowCells();
+
                 }
+            }
+
+            PlaceCells(5);
+                }
+        if (val == 5)
+        {
+            for (int y = 0; y < SCREEN_HEIGHT; y++)
+            {
+                for (int x = 0; x < SCREEN_WIDTH; x++)
+                {
+
+                    if (grid[x, y].isAlive)
+                    {
+                        grid[x, y].SetAlive(false);
+                        grid[x, y].GetComponent<SpriteRenderer>().enabled = false;
+                    }
+                    RemoveYellowCells();
+
+                }
+            }
+            PlaceCells(6);
+        }
 
     } 
+    
 
         void CountNeighbors()
     {
@@ -380,7 +414,7 @@ public class Game : MonoBehaviour
         }
     }
 
-    void PopulationControl ()//-15:30 into part 3 vid
+    void  PopulationControl ()//-15:30 into part 3 vid
     {
         for (int y = 0; y < SCREEN_HEIGHT; y++)
         {
@@ -399,33 +433,29 @@ public class Game : MonoBehaviour
                     {
                         grid[x, y].SetAlive(false);
 
-                        grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow");
-                        grid[x, y].GetComponent<SpriteRenderer>().enabled = true;
-                        yellowCells.Add(grid[x, y]);
-
-                        /*if (grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow"))
+                        StartCoroutine(Traildelay());
+                        
+                        IEnumerator Traildelay()
                         {
-                            Invoke("yellow25", 1f);
+                            grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow");
+                            grid[x, y].GetComponent<SpriteRenderer>().enabled = true;
+                            yellowCells.Add(grid[x, y]);
+
+                         
+                            yield return new WaitForSeconds(0.1f);
+
+                            RemoveYellowCells();
+
+                        }
 
 
-
-                        }*/
-                        //print(grid[x, y].GetComponent<SpriteRenderer>().sprite.name);
-
-                        //GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow");
-
-                        //grid[x, y].SetDead(true);
-
-                        //8iplace(Cell, DeadCell);
-
-
-                        //this.gameObject.GetComponent<SpriteRenderer>().sprite = yellowSprite;
 
                     } else
                     {
                         grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Red");
                     }
                     
+
                 }
                 else
                 {
@@ -442,30 +472,6 @@ public class Game : MonoBehaviour
         }
     }
 
-   /* void yellow25()
-    {
-        for (int y = 0; y < SCREEN_HEIGHT; y++)
-        {
-            for (int x = 0; x < SCREEN_WIDTH; x++)
-            {
-                grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow25");
-                grid[x, y].GetComponent<SpriteRenderer>().enabled = true;
-                //yellowCells.Add(grid[x, y]);
-            }
-        }
-    }*/
-
-    bool RandomAliveCell()
-    {
-        
-        int rand = UnityEngine.Random.Range(0, 100);
-
-        if (rand > 75)
-        {
-            return true;
-        }
-        return false; 
-    }
 
 
     private void RemoveYellowCells()

@@ -16,16 +16,10 @@ public class Cell : MonoBehaviour
         if (alive)
         {
             GetComponent<SpriteRenderer>().enabled = true;
-            //GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Red");
         }
         else
         {
             GetComponent<SpriteRenderer>().enabled = false;
-
-            
-            //GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow");
-            //GetComponent<SpriteRenderer>().sprite = Instantiate(Resources.Load("Prefabs/Cell", typeof(Cell)), new Vector2(x, y), Quaternion.identity) as Cell;
-
         }
 
     }
