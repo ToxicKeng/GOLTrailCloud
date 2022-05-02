@@ -67,11 +67,11 @@ public class Game : MonoBehaviour
             int x = Mathf.RoundToInt(mousePoint.x);
             int y = Mathf.RoundToInt(mousePoint.y);
 
-            if(x >= 0 && y >= 0 && x < SCREEN_WIDTH && y < SCREEN_HEIGHT)
+            if (x >= 0 && y >= 0 && x < SCREEN_WIDTH && y < SCREEN_HEIGHT)
             {
                 //-- we are in bounds
                 grid[x, y].SetAlive(!grid[x, y].isAlive);
-                if(grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow")) {
+                if (grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow")) {
                     grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Red");
                 }
             }
@@ -198,10 +198,10 @@ public class Game : MonoBehaviour
                 for (int x = 32; x < 36; x++)
                 {
 
-                        if (y == 21 && (x != 35) || y == 22 && (x != 32))
-                        {
-                            grid[x, y].SetAlive(true);
-                        }
+                    if (y == 21 && (x != 35) || y == 22 && (x != 32))
+                    {
+                        grid[x, y].SetAlive(true);
+                    }
                 }
             }
 
@@ -216,60 +216,28 @@ public class Game : MonoBehaviour
                 for (int x = 30; x < 35; x++)
                 {
 
-                        if (y == 21 && (x != 34) || y == 22 &&(x != 31 && x != 32 && x != 33) || x == 30 && (y != 24) || y == 24 && (x != 30 && x != 32 && x != 33))
-                        {
-                            grid[x, y].SetAlive(true);
-                        }
-
-                }
-            }
-
-
-        }
-        if (type == 6)
-        {
-            for (int y = 0; y < SCREEN_HEIGHT; y++)
-            {
-                for (int x = 0; x < SCREEN_WIDTH; x++)
-                {
-
-                    Cell cell = Instantiate(Resources.Load("Prefabs/Cell", typeof(Cell)), new Vector2(x, y), Quaternion.identity) as Cell;
-                    grid[x, y] = cell;
-                    grid[x, y].SetAlive(false);
-
-
-                }
-            }
-
-            for (int y = 21; y < 25; y++)
-            {
-                for (int x = 30; x < 34; x++)
-                {
-
-                    if (y == 21 && (x < 32) || y == 22 && (x < 32) || y == 23 && (x > 31) || y == 24 && (x > 31))
+                    if (y == 21 && (x != 34) || y == 22 && (x != 31 && x != 32 && x != 33) || x == 30 && (y != 24) || y == 24 && (x != 30 && x != 32 && x != 33))
                     {
                         grid[x, y].SetAlive(true);
                     }
 
-
                 }
             }
 
 
         }
-
     }
 
     public void PresetInputData(int val)
     {
-                /*if (val == 0)
-                {
-                    PlaceCells(1);
+        /*if (val == 0)
+        {
+            PlaceCells(1);
 
-                }*/
+        }*/
 
-                if (val == 1)
-                {
+        if (val == 1)
+        {
             for (int y = 0; y < SCREEN_HEIGHT; y++)
             {
                 for (int x = 0; x < SCREEN_WIDTH; x++)
@@ -286,10 +254,10 @@ public class Game : MonoBehaviour
             }
             PlaceCells(2);
 
-                }
+        }
 
-                if (val == 2)
-                {
+        if (val == 2)
+        {
             for (int y = 0; y < SCREEN_HEIGHT; y++)
             {
                 for (int x = 0; x < SCREEN_WIDTH; x++)
@@ -305,10 +273,10 @@ public class Game : MonoBehaviour
                 }
             }
             PlaceCells(3);
-                }
+        }
 
-                if (val == 3)
-                {
+        if (val == 3)
+        {
             for (int y = 0; y < SCREEN_HEIGHT; y++)
             {
                 for (int x = 0; x < SCREEN_WIDTH; x++)
@@ -325,9 +293,9 @@ public class Game : MonoBehaviour
             }
 
             PlaceCells(4);
-                }
-                if (val == 4)
-                {
+        }
+        if (val == 4)
+        {
             for (int y = 0; y < SCREEN_HEIGHT; y++)
             {
                 for (int x = 0; x < SCREEN_WIDTH; x++)
@@ -344,7 +312,7 @@ public class Game : MonoBehaviour
             }
 
             PlaceCells(5);
-                }
+        }
         if (val == 5)
         {
             for (int y = 0; y < SCREEN_HEIGHT; y++)
@@ -366,155 +334,160 @@ public class Game : MonoBehaviour
                     PlaceCells(6);
                 }
 
-    }
-
-
-        void CountNeighbors()
-    {
-        for (int y = 0; y < SCREEN_HEIGHT; y++)
-        {
-            for (int x = 0; x < SCREEN_WIDTH; x++)
-            {
-                int numNeighbors = 0;
-
-                //- North
-                if (y+1 < SCREEN_HEIGHT)
-                {
-                    if (grid[x,y+1].isAlive)
-                    {
-                        numNeighbors++;
-                    }
-                }
-                //-East
-                if (x+1 < SCREEN_WIDTH)
-                {
-                    if (grid[x+1,y].isAlive)
-                    {
-                        numNeighbors++;
-                    }
-                }
-                //-South
-                if (y-1 >= 0)
-                {
-                    if (grid[x,y-1].isAlive)
-                    {
-                        numNeighbors++;
-                    }
-                }
-                //-West
-                if (x-1 >= 0)
-                {
-                    if (grid[x-1,y].isAlive)
-                    {
-                        numNeighbors++;
-                    }
-                }
-                //-NothEast
-                if (x + 1 < SCREEN_WIDTH && y + 1 < SCREEN_HEIGHT)
-                {
-                    if (grid[x+1, y+1].isAlive)
-                    {
-                        numNeighbors++;
-                    }
-                }
-                //-NothWest
-                if (x - 1 >= 0 && y + 1 < SCREEN_HEIGHT)
-                {
-                    if (grid[x-1,y+1].isAlive)
-                    {
-                        numNeighbors++;
-                    }
-                }
-                //-SouthEast
-                if (x + 1 < SCREEN_WIDTH && y - 1 >= 0)
-                {
-                    if (grid[x+1,y-1].isAlive)
-                    {
-                        numNeighbors++;
-                    }
-                }
-                //-SouthWest
-                if (x - 1 >= 0 && y - 1 >= 0)
-                {
-                    if (grid[x-1, y-1].isAlive)
-                    {
-                        numNeighbors++;
-                    }
-                }
-                grid[x, y].numNeighbors = numNeighbors;
-
             }
         }
     }
 
-    void  PopulationControl ()//-15:30 into part 3 vid
-    {
-        for (int y = 0; y < SCREEN_HEIGHT; y++)
-        {
-            for (int x = 0; x < SCREEN_WIDTH; x++)
+
+            void CountNeighbors()
             {
-                //-rules
-                //-Any live cell with 2 of 3 lives neighbors survives
-                //-Any dead cell with 3 live neigbors become a live cell
-                //-All other live cells die in next Gen and all other dead cells stay dead
-
-                if (grid[x, y].isAlive)
+                for (int y = 0; y < SCREEN_HEIGHT; y++)
                 {
-
-                    //-cell is Alive
-                    if (grid[x,y].numNeighbors != 2 && grid[x, y].numNeighbors != 3)
+                    for (int x = 0; x < SCREEN_WIDTH; x++)
                     {
-                        grid[x, y].SetAlive(false);
+                        int numNeighbors = 0;
 
-                        StartCoroutine(Traildelay());
-
-                        IEnumerator Traildelay()
+                        //- North
+                        if (y + 1 < SCREEN_HEIGHT)
                         {
-                            grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow");
-                            grid[x, y].GetComponent<SpriteRenderer>().enabled = true;
-                            yellowCells.Add(grid[x, y]);
+                            if (grid[x, y + 1].isAlive)
+                            {
+                                numNeighbors++;
+                            }
+                        }
+                        //-East
+                        if (x + 1 < SCREEN_WIDTH)
+                        {
+                            if (grid[x + 1, y].isAlive)
+                            {
+                                numNeighbors++;
+                            }
+                        }
+                        //-South
+                        if (y - 1 >= 0)
+                        {
+                            if (grid[x, y - 1].isAlive)
+                            {
+                                numNeighbors++;
+                            }
+                        }
+                        //-West
+                        if (x - 1 >= 0)
+                        {
+                            if (grid[x - 1, y].isAlive)
+                            {
+                                numNeighbors++;
+                            }
+                        }
+                        //-NothEast
+                        if (x + 1 < SCREEN_WIDTH && y + 1 < SCREEN_HEIGHT)
+                        {
+                            if (grid[x + 1, y + 1].isAlive)
+                            {
+                                numNeighbors++;
+                            }
+                        }
+                        //-NothWest
+                        if (x - 1 >= 0 && y + 1 < SCREEN_HEIGHT)
+                        {
+                            if (grid[x - 1, y + 1].isAlive)
+                            {
+                                numNeighbors++;
+                            }
+                        }
+                        //-SouthEast
+                        if (x + 1 < SCREEN_WIDTH && y - 1 >= 0)
+                        {
+                            if (grid[x + 1, y - 1].isAlive)
+                            {
+                                numNeighbors++;
+                            }
+                        }
+                        //-SouthWest
+                        if (x - 1 >= 0 && y - 1 >= 0)
+                        {
+                            if (grid[x - 1, y - 1].isAlive)
+                            {
+                                numNeighbors++;
+                            }
+                        }
+                        grid[x, y].numNeighbors = numNeighbors;
+
+                    }
+                }
+            }
+
+            void PopulationControl()
+            {
+                for (int y = 0; y < SCREEN_HEIGHT; y++)
+                {
+                    for (int x = 0; x < SCREEN_WIDTH; x++)
+                    {
+                        //-rules
+                        //-Any live cell with 2 of 3 lives neighbors survives
+                        //-Any dead cell with 3 live neigbors become a live cell
+                        //-All other live cells die in next Gen and all other dead cells stay dead
+
+                        if (grid[x, y].isAlive)
+                        {
+
+                            //-cell is Alive
+                            if (grid[x, y].numNeighbors != 2 && grid[x, y].numNeighbors != 3)
+                            {
+                                grid[x, y].SetAlive(false);
+
+                                StartCoroutine(Traildelay());
+
+                                IEnumerator Traildelay()
+                                {
+                                    grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow");
+                                    grid[x, y].GetComponent<SpriteRenderer>().enabled = true;
+                                    yellowCells.Add(grid[x, y]);
 
 
-                            yield return new WaitForSeconds(0.1f);
+                                    yield return new WaitForSeconds(0.1f);
 
-                            RemoveYellowCells();
+                                    RemoveYellowCells();
+
+                                }
+
+
+
+                            } else
+                            {
+                                grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Red");
+                            }
+
 
                         }
+                        else
+                        {
 
+                            //-cell is dead
+                            if (grid[x, y].numNeighbors == 3)
+                            {
+                                grid[x, y].SetAlive(true);
+                                grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Red");
 
-
-                    } else
-                    {
-                        grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Red");
-                    }
-
-
-                }
-                else
-                {
-
-                    //-cell is dead
-                    if (grid[x, y].numNeighbors == 3)
-                    {
-                        grid[x, y].SetAlive(true);
-                        grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Red");
-
+                            }
+                        }
                     }
                 }
             }
-        }
-    }
 
 
 
+            
+
+        
+    
     private void RemoveYellowCells()
     {
-        for(int i = 0; i < yellowCells.Count; i++)
+        for (int i = 0; i < yellowCells.Count; i++)
         {
             yellowCells[i].GetComponent<SpriteRenderer>().enabled = false;
         }
         //print("loop done");
         yellowCells.Clear();
     }
-
 }
