@@ -39,10 +39,10 @@ public class Game : MonoBehaviour
             if (timer >= speed)
             {
                 timer = 0f;
-                
+
                 CountNeighbors();
                 PopulationControl();
-                
+
             }
             else
             {
@@ -56,14 +56,14 @@ public class Game : MonoBehaviour
     }
 
 
-   
+
 
     void UserInput()
     {
-        if (Input.GetMouseButtonDown(0)) 
-        { 
+        if (Input.GetMouseButtonDown(0))
+        {
             Vector2 mousePoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            
+
             int x = Mathf.RoundToInt(mousePoint.x);
             int y = Mathf.RoundToInt(mousePoint.y);
 
@@ -110,7 +110,7 @@ public class Game : MonoBehaviour
 
     void PlaceCells(int type)
     {
-        
+
         //Nothing
         if (type == 1)
         {
@@ -141,8 +141,8 @@ public class Game : MonoBehaviour
                     {
                         grid[x, y].SetAlive(true);
                     }
-                    
-                    
+
+
                 }
             }
         }
@@ -150,7 +150,7 @@ public class Game : MonoBehaviour
         if (type == 3)
         {
 
-           
+
             for (int y = 21; y < 24; y++)
             {
                 for (int x = 30; x < 33; x++)
@@ -197,7 +197,7 @@ public class Game : MonoBehaviour
             {
                 for (int x = 32; x < 36; x++)
                 {
-                    
+
                         if (y == 21 && (x != 35) || y == 22 && (x != 32))
                         {
                             grid[x, y].SetAlive(true);
@@ -215,12 +215,43 @@ public class Game : MonoBehaviour
             {
                 for (int x = 30; x < 35; x++)
                 {
-                   
+
                         if (y == 21 && (x != 34) || y == 22 &&(x != 31 && x != 32 && x != 33) || x == 30 && (y != 24) || y == 24 && (x != 30 && x != 32 && x != 33))
                         {
                             grid[x, y].SetAlive(true);
                         }
-                    
+
+                }
+            }
+
+
+        }
+        if (type == 6)
+        {
+            for (int y = 0; y < SCREEN_HEIGHT; y++)
+            {
+                for (int x = 0; x < SCREEN_WIDTH; x++)
+                {
+
+                    Cell cell = Instantiate(Resources.Load("Prefabs/Cell", typeof(Cell)), new Vector2(x, y), Quaternion.identity) as Cell;
+                    grid[x, y] = cell;
+                    grid[x, y].SetAlive(false);
+
+
+                }
+            }
+
+            for (int y = 21; y < 25; y++)
+            {
+                for (int x = 30; x < 34; x++)
+                {
+
+                    if (y == 21 && (x < 32) || y == 22 && (x < 32) || y == 23 && (x > 31) || y == 24 && (x > 31))
+                    {
+                        grid[x, y].SetAlive(true);
+                    }
+
+
                 }
             }
 
@@ -228,15 +259,15 @@ public class Game : MonoBehaviour
         }
 
     }
-    
+
     public void PresetInputData(int val)
     {
                 /*if (val == 0)
                 {
                     PlaceCells(1);
-                    
+
                 }*/
-               
+
                 if (val == 1)
                 {
             for (int y = 0; y < SCREEN_HEIGHT; y++)
@@ -254,7 +285,7 @@ public class Game : MonoBehaviour
                 }
             }
             PlaceCells(2);
-                    
+
                 }
 
                 if (val == 2)
@@ -275,7 +306,7 @@ public class Game : MonoBehaviour
             }
             PlaceCells(3);
                 }
-                
+
                 if (val == 3)
                 {
             for (int y = 0; y < SCREEN_HEIGHT; y++)
@@ -329,12 +360,14 @@ public class Game : MonoBehaviour
                     RemoveYellowCells();
 
                 }
-            }
-            PlaceCells(6);
-        }
+                if (val == 5)
+                {
 
-    } 
-    
+                    PlaceCells(6);
+                }
+
+    }
+
 
         void CountNeighbors()
     {
@@ -434,14 +467,14 @@ public class Game : MonoBehaviour
                         grid[x, y].SetAlive(false);
 
                         StartCoroutine(Traildelay());
-                        
+
                         IEnumerator Traildelay()
                         {
                             grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow");
                             grid[x, y].GetComponent<SpriteRenderer>().enabled = true;
                             yellowCells.Add(grid[x, y]);
 
-                         
+
                             yield return new WaitForSeconds(0.1f);
 
                             RemoveYellowCells();
@@ -454,12 +487,12 @@ public class Game : MonoBehaviour
                     {
                         grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Red");
                     }
-                    
+
 
                 }
                 else
                 {
-                    
+
                     //-cell is dead
                     if (grid[x, y].numNeighbors == 3)
                     {
@@ -483,6 +516,5 @@ public class Game : MonoBehaviour
         //print("loop done");
         yellowCells.Clear();
     }
-   
-}
 
+}
