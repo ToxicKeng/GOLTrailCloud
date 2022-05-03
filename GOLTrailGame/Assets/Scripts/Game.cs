@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class Game : MonoBehaviour
@@ -33,7 +34,6 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (simulationEnabled)
         {
             if (timer >= speed)
@@ -436,24 +436,12 @@ public class Game : MonoBehaviour
                             {
                                 grid[x, y].SetAlive(false);
 
-                                StartCoroutine(Traildelay());
 
-                                IEnumerator Traildelay()
-                                {
-                                    grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow");
-                                    grid[x, y].GetComponent<SpriteRenderer>().enabled = true;
-                                    yellowCells.Add(grid[x, y]);
+                        yellowCells.Add(grid[x, y]);
+                        TrailDelay trail = new TrailDelay(x,y, grid);
+                        StartCoroutine(trail.TrailFade());
 
-
-                                    yield return new WaitForSeconds(0.1f);
-
-                                    RemoveYellowCells();
-
-                                }
-
-
-
-                            } else
+                    } else
                             {
                                 grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Red");
                             }
@@ -475,12 +463,6 @@ public class Game : MonoBehaviour
                 }
             }
 
-
-
-            
-
-        
-    
     private void RemoveYellowCells()
     {
         for (int i = 0; i < yellowCells.Count; i++)
@@ -489,5 +471,45 @@ public class Game : MonoBehaviour
         }
         //print("loop done");
         yellowCells.Clear();
+    }
+
+
+    class TrailDelay
+    {
+        private float delay = 0.2f;
+        Cell[,] grid;
+        int x;
+        int y;
+        public TrailDelay(int x, int y, Cell[,] Grid)
+        {
+            this.x = x;
+            this.y = y;
+            grid = Grid;
+        }
+        public IEnumerator TrailFade()
+        {
+            grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow");
+            grid[x, y].GetComponent<SpriteRenderer>().enabled = true;
+
+            yield return new WaitForSeconds(delay);
+
+            grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow25");
+            grid[x, y].GetComponent<SpriteRenderer>().enabled = true;
+
+            yield return new WaitForSeconds(delay);
+
+            grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow50");
+            grid[x, y].GetComponent<SpriteRenderer>().enabled = true;
+
+            yield return new WaitForSeconds(delay);
+
+            grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow75");
+            grid[x, y].GetComponent<SpriteRenderer>().enabled = true;
+
+            yield return new WaitForSeconds(delay);
+
+            grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Red");
+            grid[x, y].GetComponent<SpriteRenderer>().enabled = false;
+        }
     }
 }
