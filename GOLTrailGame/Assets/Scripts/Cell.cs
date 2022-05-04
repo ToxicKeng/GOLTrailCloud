@@ -16,9 +16,11 @@ public class Cell : MonoBehaviour
         if (alive)
         {
             GetComponent<SpriteRenderer>().enabled = true;
+            //transform.gameObject.SetActive(true);
         }
         else
         {
+            //transform.gameObject.SetActive(false);
             GetComponent<SpriteRenderer>().enabled = false;
         }
 

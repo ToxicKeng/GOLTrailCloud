@@ -22,9 +22,16 @@ public class Game : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        PlaceCells(1);
-
+        for (int y = 0; y < SCREEN_HEIGHT; y++)
+        {
+            for (int x = 0; x < SCREEN_WIDTH; x++)
+            {
+                Cell cell = Instantiate(Resources.Load("Prefabs/Cell", typeof(Cell)), new Vector2(x, y), Quaternion.identity) as Cell;
+                grid[x, y] = cell;
+                grid[x, y].SetAlive(false);
+            }
+        }
+        PlaceCells(5);
     }
 
     // Update is called once per frame
@@ -60,10 +67,14 @@ public class Game : MonoBehaviour
             int x = Mathf.RoundToInt(mousePoint.x);
             int y = Mathf.RoundToInt(mousePoint.y);
 
+            print(grid[x, y].GetComponent<Transform>().position);
+
             if (x >= 0 && y >= 0 && x < SCREEN_WIDTH && y < SCREEN_HEIGHT)
             {
                 //-- we are in bounds
                 grid[x, y].SetAlive(!grid[x, y].isAlive);
+                
+
                 if (grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow"))
                 {
                     grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Red");
@@ -102,9 +113,9 @@ public class Game : MonoBehaviour
 
     }
 
-    void PlaceCells(int type)
+    public void PlaceCells(int type)
     {
-
+        yellowCells.Clear();
         //Nothing
         if (type == 1)
         {
@@ -112,12 +123,8 @@ public class Game : MonoBehaviour
             {
                 for (int x = 0; x < SCREEN_WIDTH; x++)
                 {
-                    Cell cell = Instantiate(Resources.Load("Prefabs/Cell", typeof(Cell)), new Vector2(x, y), Quaternion.identity) as Cell;
-                    grid[x, y] = cell;
                     grid[x, y].SetAlive(false);
-
                 }
-
             }
         }
         //Random
@@ -217,116 +224,81 @@ public class Game : MonoBehaviour
         }
     }
 
-    public void PresetInputData(int val)
+    //Making my code more efficient
+    public void UserInputPreset()
     {
-        /*if (val == 0)
+        for (int y = 0; y < SCREEN_HEIGHT; y++)
         {
-            PlaceCells(1);
-
-        }*/
-
-        if (val == 1)
-        {
-            for (int y = 0; y < SCREEN_HEIGHT; y++)
+            for (int x = 0; x < SCREEN_WIDTH; x++)
             {
-                for (int x = 0; x < SCREEN_WIDTH; x++)
-                {
-
                     if (grid[x, y].isAlive)
                     {
                         grid[x, y].SetAlive(false);
                         grid[x, y].GetComponent<SpriteRenderer>().enabled = false;
                     }
                     RemoveYellowCells();
+                
+            }
+        }
+        /*if (Input.GetMouseButtonDown(0))
+        {
+            Vector2 mousePoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+            int x = Mathf.RoundToInt(mousePoint.x);
+            int y = Mathf.RoundToInt(mousePoint.y);
+
+            print(grid[x, y].GetComponent<Transform>().position);
+
+            if (x >= 0 && y >= 0 && x < SCREEN_WIDTH && y < SCREEN_HEIGHT)
+            {
+                //-- we are in bounds
+                grid[x, y].SetAlive(!grid[x, y].isAlive);
+                if (grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow"))
+                {
+                    grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Red");
                 }
             }
+        }*/
+    }
+    /*public void PresetInputData(int val)
+    {
+        //if (val == 0)
+        //{
+        //    UserInputPreset();
+        //    PlaceCells(1);
+
+        //}
+
+        if (val == 1)
+        {
+            UserInputPreset();
             PlaceCells(2);
 
         }
 
         if (val == 2)
         {
-            for (int y = 0; y < SCREEN_HEIGHT; y++)
-            {
-                for (int x = 0; x < SCREEN_WIDTH; x++)
-                {
-
-                    if (grid[x, y].isAlive)
-                    {
-                        grid[x, y].SetAlive(false);
-                        grid[x, y].GetComponent<SpriteRenderer>().enabled = false;
-                    }
-                    RemoveYellowCells();
-
-                }
-            }
+            UserInputPreset();
             PlaceCells(3);
 
         }
 
         if (val == 3)
         {
-            for (int y = 0; y < SCREEN_HEIGHT; y++)
-            {
-                for (int x = 0; x < SCREEN_WIDTH; x++)
-                {
-
-                    if (grid[x, y].isAlive)
-                    {
-                        grid[x, y].SetAlive(false);
-                        grid[x, y].GetComponent<SpriteRenderer>().enabled = false;
-                    }
-                    RemoveYellowCells();
-
-                }
-            }
-
+            UserInputPreset();
             PlaceCells(4);
         }
         if (val == 4)
         {
-            for (int y = 0; y < SCREEN_HEIGHT; y++)
-            {
-                for (int x = 0; x < SCREEN_WIDTH; x++)
-                {
-
-                    if (grid[x, y].isAlive)
-                    {
-                        grid[x, y].SetAlive(false);
-                        grid[x, y].GetComponent<SpriteRenderer>().enabled = false;
-                    }
-                    RemoveYellowCells();
-
-                }
-            }
-
+            UserInputPreset();
             PlaceCells(5);
         }
         if (val == 5)
         {
-            for (int y = 0; y < SCREEN_HEIGHT; y++)
-            {
-                for (int x = 0; x < SCREEN_WIDTH; x++)
-                {
-
-                    if (grid[x, y].isAlive)
-                    {
-                        grid[x, y].SetAlive(false);
-                        grid[x, y].GetComponent<SpriteRenderer>().enabled = false;
-                    }
-                    RemoveYellowCells();
-
-                }
-                if (val == 5)
-                {
-
-                    PlaceCells(6);
-                }
-
-            }
+            UserInputPreset();
+            PlaceCells(6);
         }
-    }
+    }*/
 
     void CountNeighbors()
     {
@@ -499,8 +471,15 @@ public class Game : MonoBehaviour
             yield
             return new WaitForSeconds(delay);
 
-            grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Red");
-            grid[x, y].GetComponent<SpriteRenderer>().enabled = false;
+            if (grid[x,y].isAlive)
+            {
+                grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Red");
+                grid[x, y].GetComponent<SpriteRenderer>().enabled = true;
+            } else
+            {
+                grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Red");
+                grid[x, y].GetComponent<SpriteRenderer>().enabled = false;
+            }
         }
     }
 }
