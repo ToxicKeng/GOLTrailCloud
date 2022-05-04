@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 public class Game : MonoBehaviour
 {
 
-    private static int SCREEN_WIDTH = 64;       //- 1024 pixels
-    private static int SCREEN_HEIGHT = 48;      //- 768 pixels
+    private static int SCREEN_WIDTH = 64; //- 1024 pixels
+    private static int SCREEN_HEIGHT = 48; //- 768 pixels
 
-    public float speed = 0.1f;
+    public float speed;
 
     private float timer = 0;
 
@@ -18,9 +17,7 @@ public class Game : MonoBehaviour
 
     List<Cell> yellowCells = new List<Cell>();
 
-
     Cell[,] grid = new Cell[SCREEN_WIDTH, SCREEN_HEIGHT];
-
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +27,6 @@ public class Game : MonoBehaviour
 
     }
 
-
     // Update is called once per frame
     void Update()
     {
@@ -38,6 +34,7 @@ public class Game : MonoBehaviour
         {
             if (timer >= speed)
             {
+                //print(timer);
                 timer = 0f;
 
                 CountNeighbors();
@@ -52,11 +49,7 @@ public class Game : MonoBehaviour
         }
         UserInput();
 
-
     }
-
-
-
 
     void UserInput()
     {
@@ -71,7 +64,8 @@ public class Game : MonoBehaviour
             {
                 //-- we are in bounds
                 grid[x, y].SetAlive(!grid[x, y].isAlive);
-                if (grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow")) {
+                if (grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow"))
+                {
                     grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Red");
                 }
             }
@@ -122,7 +116,6 @@ public class Game : MonoBehaviour
                     grid[x, y] = cell;
                     grid[x, y].SetAlive(false);
 
-
                 }
 
             }
@@ -142,7 +135,6 @@ public class Game : MonoBehaviour
                         grid[x, y].SetAlive(true);
                     }
 
-
                 }
             }
         }
@@ -150,11 +142,11 @@ public class Game : MonoBehaviour
         if (type == 3)
         {
 
-
             for (int y = 21; y < 24; y++)
             {
                 for (int x = 30; x < 33; x++)
                 {
+
                     if (x != 33)
                     {
                         if (y == 21 || y == 23 && ((x != 30) && (x != 32)) || y == 22 && ((x != 30) && (x != 31)))
@@ -163,9 +155,9 @@ public class Game : MonoBehaviour
                         }
 
                     }
+
                 }
             }
-
 
         }
 
@@ -187,7 +179,6 @@ public class Game : MonoBehaviour
                 }
             }
 
-
         }
         //Toad
         if (type == 5)
@@ -204,7 +195,6 @@ public class Game : MonoBehaviour
                     }
                 }
             }
-
 
         }
         //Space Ship
@@ -223,7 +213,6 @@ public class Game : MonoBehaviour
 
                 }
             }
-
 
         }
     }
@@ -273,6 +262,7 @@ public class Game : MonoBehaviour
                 }
             }
             PlaceCells(3);
+
         }
 
         if (val == 3)
@@ -338,130 +328,128 @@ public class Game : MonoBehaviour
         }
     }
 
-
-            void CountNeighbors()
+    void CountNeighbors()
+    {
+        for (int y = 0; y < SCREEN_HEIGHT; y++)
+        {
+            for (int x = 0; x < SCREEN_WIDTH; x++)
             {
-                for (int y = 0; y < SCREEN_HEIGHT; y++)
+                int numNeighbors = 0;
+
+                //- North
+                if (y + 1 < SCREEN_HEIGHT)
                 {
-                    for (int x = 0; x < SCREEN_WIDTH; x++)
+                    if (grid[x, y + 1].isAlive)
                     {
-                        int numNeighbors = 0;
-
-                        //- North
-                        if (y + 1 < SCREEN_HEIGHT)
-                        {
-                            if (grid[x, y + 1].isAlive)
-                            {
-                                numNeighbors++;
-                            }
-                        }
-                        //-East
-                        if (x + 1 < SCREEN_WIDTH)
-                        {
-                            if (grid[x + 1, y].isAlive)
-                            {
-                                numNeighbors++;
-                            }
-                        }
-                        //-South
-                        if (y - 1 >= 0)
-                        {
-                            if (grid[x, y - 1].isAlive)
-                            {
-                                numNeighbors++;
-                            }
-                        }
-                        //-West
-                        if (x - 1 >= 0)
-                        {
-                            if (grid[x - 1, y].isAlive)
-                            {
-                                numNeighbors++;
-                            }
-                        }
-                        //-NothEast
-                        if (x + 1 < SCREEN_WIDTH && y + 1 < SCREEN_HEIGHT)
-                        {
-                            if (grid[x + 1, y + 1].isAlive)
-                            {
-                                numNeighbors++;
-                            }
-                        }
-                        //-NothWest
-                        if (x - 1 >= 0 && y + 1 < SCREEN_HEIGHT)
-                        {
-                            if (grid[x - 1, y + 1].isAlive)
-                            {
-                                numNeighbors++;
-                            }
-                        }
-                        //-SouthEast
-                        if (x + 1 < SCREEN_WIDTH && y - 1 >= 0)
-                        {
-                            if (grid[x + 1, y - 1].isAlive)
-                            {
-                                numNeighbors++;
-                            }
-                        }
-                        //-SouthWest
-                        if (x - 1 >= 0 && y - 1 >= 0)
-                        {
-                            if (grid[x - 1, y - 1].isAlive)
-                            {
-                                numNeighbors++;
-                            }
-                        }
-                        grid[x, y].numNeighbors = numNeighbors;
-
+                        numNeighbors++;
                     }
                 }
-            }
-
-            void PopulationControl()
-            {
-                for (int y = 0; y < SCREEN_HEIGHT; y++)
+                //-East
+                if (x + 1 < SCREEN_WIDTH)
                 {
-                    for (int x = 0; x < SCREEN_WIDTH; x++)
+                    if (grid[x + 1, y].isAlive)
                     {
-                        //-rules
-                        //-Any live cell with 2 of 3 lives neighbors survives
-                        //-Any dead cell with 3 live neigbors become a live cell
-                        //-All other live cells die in next Gen and all other dead cells stay dead
+                        numNeighbors++;
+                    }
+                }
+                //-South
+                if (y - 1 >= 0)
+                {
+                    if (grid[x, y - 1].isAlive)
+                    {
+                        numNeighbors++;
+                    }
+                }
+                //-West
+                if (x - 1 >= 0)
+                {
+                    if (grid[x - 1, y].isAlive)
+                    {
+                        numNeighbors++;
+                    }
+                }
+                //-NothEast
+                if (x + 1 < SCREEN_WIDTH && y + 1 < SCREEN_HEIGHT)
+                {
+                    if (grid[x + 1, y + 1].isAlive)
+                    {
+                        numNeighbors++;
+                    }
+                }
+                //-NothWest
+                if (x - 1 >= 0 && y + 1 < SCREEN_HEIGHT)
+                {
+                    if (grid[x - 1, y + 1].isAlive)
+                    {
+                        numNeighbors++;
+                    }
+                }
+                //-SouthEast
+                if (x + 1 < SCREEN_WIDTH && y - 1 >= 0)
+                {
+                    if (grid[x + 1, y - 1].isAlive)
+                    {
+                        numNeighbors++;
+                    }
+                }
+                //-SouthWest
+                if (x - 1 >= 0 && y - 1 >= 0)
+                {
+                    if (grid[x - 1, y - 1].isAlive)
+                    {
+                        numNeighbors++;
+                    }
+                }
+                grid[x, y].numNeighbors = numNeighbors;
 
-                        if (grid[x, y].isAlive)
-                        {
+            }
+        }
+    }
 
-                            //-cell is Alive
-                            if (grid[x, y].numNeighbors != 2 && grid[x, y].numNeighbors != 3)
-                            {
-                                grid[x, y].SetAlive(false);
+    void PopulationControl()
+    {
+        for (int y = 0; y < SCREEN_HEIGHT; y++)
+        {
+            for (int x = 0; x < SCREEN_WIDTH; x++)
+            {
+                //-rules
+                //-Any live cell with 2 of 3 lives neighbors survives
+                //-Any dead cell with 3 live neigbors become a live cell
+                //-All other live cells die in next Gen and all other dead cells stay dead
 
+                if (grid[x, y].isAlive)
+                {
+
+                    //-cell is Alive
+                    if (grid[x, y].numNeighbors != 2 && grid[x, y].numNeighbors != 3)
+                    {
+                        grid[x, y].SetAlive(false);
 
                         yellowCells.Add(grid[x, y]);
-                        TrailDelay trail = new TrailDelay(x,y, grid);
+                        TrailDelay trail = new TrailDelay(x, y, grid);
                         StartCoroutine(trail.TrailFade());
 
-                    } else
-                            {
-                                grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Red");
-                            }
+                    }
+                    else
+                    {
+                        grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Red");
+                    }
 
+                }
+                else
+                {
 
-                        }
-                        else
-                        {
+                    //-cell is dead
+                    if (grid[x, y].numNeighbors == 3)
+                    {
+                        grid[x, y].SetAlive(true);
+                        grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Red");
 
-                            //-cell is dead
-                            if (grid[x, y].numNeighbors == 3)
-                            {
-                                grid[x, y].SetAlive(true);
-                                grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Red");
-
-                            }
-                        }
                     }
                 }
             }
+        }
+    }
 
     private void RemoveYellowCells()
     {
@@ -473,11 +461,10 @@ public class Game : MonoBehaviour
         yellowCells.Clear();
     }
 
-
     class TrailDelay
     {
         private float delay = 0.2f;
-        Cell[,] grid;
+                Cell[,] grid;
         int x;
         int y;
         public TrailDelay(int x, int y, Cell[,] Grid)
@@ -491,22 +478,26 @@ public class Game : MonoBehaviour
             grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow");
             grid[x, y].GetComponent<SpriteRenderer>().enabled = true;
 
-            yield return new WaitForSeconds(delay);
+            yield
+            return new WaitForSeconds(delay);
 
             grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow25");
             grid[x, y].GetComponent<SpriteRenderer>().enabled = true;
 
-            yield return new WaitForSeconds(delay);
+            yield
+            return new WaitForSeconds(delay);
 
             grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow50");
             grid[x, y].GetComponent<SpriteRenderer>().enabled = true;
 
-            yield return new WaitForSeconds(delay);
+            yield
+            return new WaitForSeconds(delay);
 
             grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow75");
             grid[x, y].GetComponent<SpriteRenderer>().enabled = true;
 
-            yield return new WaitForSeconds(delay);
+            yield
+            return new WaitForSeconds(delay);
 
             grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Red");
             grid[x, y].GetComponent<SpriteRenderer>().enabled = false;
