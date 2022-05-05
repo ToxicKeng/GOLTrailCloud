@@ -268,8 +268,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -381.2016, y: 239.11023}
-  m_SizeDelta: {x: 261.5968, y: 289.7795}
+  m_AnchoredPosition: {x: -390.63235, y: 239.81277}
+  m_SizeDelta: {x: 242.7352, y: 288.3745}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &66031151
 MonoBehaviour:
@@ -1043,6 +1043,8 @@ MonoBehaviour:
     - m_Text: Toad
       m_Image: {fileID: 0}
     - m_Text: Space Ship
+      m_Image: {fileID: 0}
+    - m_Text: Around the Edge
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1996,7 +1998,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Step 1:
 
-    - Click to add new cells
+    Click to add new cells
 
     or
 

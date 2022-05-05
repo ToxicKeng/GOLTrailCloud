@@ -220,6 +220,23 @@ public class Game : MonoBehaviour
             }
 
         }
+        if (type == 7)
+        {
+
+            for (int y = 0; y < SCREEN_HEIGHT; y++)
+            {
+                for (int x = 0; x < SCREEN_WIDTH; x++)
+                    {
+
+                    if (y == 0 || y == 47 || x == 0 || x == 63)
+                    {
+                        grid[x, y].SetAlive(true);
+                    }
+
+                }
+            }
+
+        }
     }
 
     //Making my code more efficient
@@ -270,6 +287,11 @@ public class Game : MonoBehaviour
         {
             UserInputPreset();
             PlaceCells(6);
+        }
+        if (val == 6)
+        {
+            UserInputPreset();
+            PlaceCells(7);
         }
     }
 
