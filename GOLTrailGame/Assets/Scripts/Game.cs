@@ -31,7 +31,7 @@ public class Game : MonoBehaviour
                 grid[x, y].SetAlive(false);
             }
         }
-        PlaceCells(5);
+        PlaceCells(1);
     }
 
     // Update is called once per frame
@@ -41,7 +41,6 @@ public class Game : MonoBehaviour
         {
             if (timer >= speed)
             {
-                //print(timer);
                 timer = 0f;
 
                 CountNeighbors();
@@ -73,7 +72,6 @@ public class Game : MonoBehaviour
             {
                 //-- we are in bounds
                 grid[x, y].SetAlive(!grid[x, y].isAlive);
-                
 
                 if (grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow"))
                 {
@@ -231,43 +229,18 @@ public class Game : MonoBehaviour
         {
             for (int x = 0; x < SCREEN_WIDTH; x++)
             {
-                    if (grid[x, y].isAlive)
-                    {
-                        grid[x, y].SetAlive(false);
-                        grid[x, y].GetComponent<SpriteRenderer>().enabled = false;
-                    }
-                    RemoveYellowCells();
-                
+                if (grid[x, y].isAlive)
+                {
+                    grid[x, y].SetAlive(false);
+                    grid[x, y].GetComponent<SpriteRenderer>().enabled = false;
+                }
+                RemoveYellowCells();
+
             }
         }
-        /*if (Input.GetMouseButtonDown(0))
-        {
-            Vector2 mousePoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            int x = Mathf.RoundToInt(mousePoint.x);
-            int y = Mathf.RoundToInt(mousePoint.y);
-
-            print(grid[x, y].GetComponent<Transform>().position);
-
-            if (x >= 0 && y >= 0 && x < SCREEN_WIDTH && y < SCREEN_HEIGHT)
-            {
-                //-- we are in bounds
-                grid[x, y].SetAlive(!grid[x, y].isAlive);
-                if (grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Yellow"))
-                {
-                    grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Red");
-                }
-            }
-        }*/
     }
-    /*public void PresetInputData(int val)
+    public void PresetInputData(int val)
     {
-        //if (val == 0)
-        //{
-        //    UserInputPreset();
-        //    PlaceCells(1);
-
-        //}
 
         if (val == 1)
         {
@@ -298,7 +271,7 @@ public class Game : MonoBehaviour
             UserInputPreset();
             PlaceCells(6);
         }
-    }*/
+    }
 
     void CountNeighbors()
     {
@@ -429,7 +402,6 @@ public class Game : MonoBehaviour
         {
             yellowCells[i].GetComponent<SpriteRenderer>().enabled = false;
         }
-        //print("loop done");
         yellowCells.Clear();
     }
 
@@ -471,11 +443,12 @@ public class Game : MonoBehaviour
             yield
             return new WaitForSeconds(delay);
 
-            if (grid[x,y].isAlive)
+            if (grid[x, y].isAlive)
             {
                 grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Red");
                 grid[x, y].GetComponent<SpriteRenderer>().enabled = true;
-            } else
+            }
+            else
             {
                 grid[x, y].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Prefabs/Red");
                 grid[x, y].GetComponent<SpriteRenderer>().enabled = false;

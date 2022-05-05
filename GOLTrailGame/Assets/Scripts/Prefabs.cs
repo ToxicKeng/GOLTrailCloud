@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class Prefabs : MonoBehaviour
 {
     public Game script;
+    
+
     public void PresetInputData(int val)
     {
         //if (val == 0)
@@ -14,9 +16,11 @@ public class Prefabs : MonoBehaviour
         //    PlaceCells(1);
 
         //}
+        
 
         if (val == 1)
         {
+            print("val is " + val);
             script.UserInputPreset();
             script.PlaceCells(2);
 
