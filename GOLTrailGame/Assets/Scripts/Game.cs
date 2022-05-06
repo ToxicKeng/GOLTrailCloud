@@ -57,6 +57,7 @@ public class Game : MonoBehaviour
 
     }
 
+    //The clicking method I need help with but the reset, Pause and start I did myself.
     void UserInput()
     {
         if (Input.GetMouseButtonDown(0))
@@ -110,7 +111,7 @@ public class Game : MonoBehaviour
         }
 
     }
-
+    //I got help to do 1 but once I knew how to do it I was able to do the rest of the presets.
     public void PlaceCells(int type)
     {
         yellowCells.Clear();
@@ -154,7 +155,7 @@ public class Game : MonoBehaviour
 
                     if (x != 33)
                     {
-                        if (y == 21 || y == 23 && ((x != 30) && (x != 32)) || y == 22 && ((x != 30) && (x != 31)))
+                        if (y == 21 || y == 23 && ((x == 31)) || y == 22 && (x == 32))
                         {
                             grid[x, y].SetAlive(true);
                         }
@@ -239,7 +240,7 @@ public class Game : MonoBehaviour
         }
     }
 
-    //Making my code more efficient
+    //Making my code more efficient (also my code)
     public void UserInputPreset()
     {
         for (int y = 0; y < SCREEN_HEIGHT; y++)
@@ -256,6 +257,8 @@ public class Game : MonoBehaviour
             }
         }
     }
+
+    //my code to create a dropdown menu.
     public void PresetInputData(int val)
     {
 
@@ -294,7 +297,7 @@ public class Game : MonoBehaviour
             PlaceCells(7);
         }
     }
-
+    //This code was from a video
     void CountNeighbors()
     {
         for (int y = 0; y < SCREEN_HEIGHT; y++)
@@ -372,7 +375,7 @@ public class Game : MonoBehaviour
             }
         }
     }
-
+    //most of this code was from a video
     void PopulationControl()
     {
         for (int y = 0; y < SCREEN_HEIGHT; y++)
@@ -417,7 +420,7 @@ public class Game : MonoBehaviour
             }
         }
     }
-
+    //my code to create trail (help from alistair)
     private void RemoveYellowCells()
     {
         for (int i = 0; i < yellowCells.Count; i++)
