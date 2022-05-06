@@ -67,8 +67,6 @@ public class Game : MonoBehaviour
             int x = Mathf.RoundToInt(mousePoint.x);
             int y = Mathf.RoundToInt(mousePoint.y);
 
-            print(grid[x, y].GetComponent<Transform>().position);
-
             if (x >= 0 && y >= 0 && x < SCREEN_WIDTH && y < SCREEN_HEIGHT)
             {
                 //-- we are in bounds
