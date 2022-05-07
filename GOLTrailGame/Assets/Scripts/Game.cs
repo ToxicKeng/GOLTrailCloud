@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
@@ -9,11 +10,21 @@ public class Game : MonoBehaviour
     private static int SCREEN_WIDTH = 64; //- 1024 pixels
     private static int SCREEN_HEIGHT = 48; //- 768 pixels
 
-    public float speed;
+
+    private float speed = 0.1f;
 
     private float timer = 0;
 
     public bool simulationEnabled = false;
+
+    [SerializeField] Slider speedSlider;
+
+    public void ChangeSpeed(float newSpeed)
+    {
+        speed = newSpeed;
+    }
+
+
 
     List<Cell> yellowCells = new List<Cell>();
 
@@ -37,6 +48,7 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (simulationEnabled)
         {
             if (timer >= speed)
