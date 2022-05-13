@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
-
+    //Grid size 64x48
     private static int SCREEN_WIDTH = 64; //- 1024 pixels
     private static int SCREEN_HEIGHT = 48; //- 768 pixels
 
@@ -15,16 +15,7 @@ public class Game : MonoBehaviour
 
     private float timer = 0;
 
-    public bool simulationEnabled = false;
-
-    [SerializeField] Slider speedSlider;
-
-    public void ChangeSpeed(float newSpeed)
-    {
-        speed = newSpeed;
-    }
-
-
+    public bool SimulationEnabled = false;
 
     List<Cell> yellowCells = new List<Cell>();
 
@@ -49,7 +40,7 @@ public class Game : MonoBehaviour
     void Update()
     {
 
-        if (simulationEnabled)
+        if (SimulationEnabled)
         {
             if (timer >= speed)
             {
@@ -67,6 +58,11 @@ public class Game : MonoBehaviour
         }
         UserInput();
 
+    }
+
+    public void ChangeSpeed(float newSpeed)
+    {
+        speed = newSpeed;
     }
 
     //The clicking method I need help with but the reset, Pause and start I did myself.
@@ -93,14 +89,14 @@ public class Game : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.P))
         {
             //-pause simultaion
-            simulationEnabled = false;
+            SimulationEnabled = false;
 
         }
 
         if (Input.GetKeyUp(KeyCode.B))
         {
             //build or resume simultaion
-            simulationEnabled = true;
+            SimulationEnabled = true;
 
         }
         //Reset
@@ -115,7 +111,7 @@ public class Game : MonoBehaviour
                         grid[x, y].SetAlive(false);
                         grid[x, y].GetComponent<SpriteRenderer>().enabled = false;
                     }
-                    RemoveYellowCells();
+                    removeYellowCells();
                 }
             }
         }
@@ -262,7 +258,7 @@ public class Game : MonoBehaviour
                     grid[x, y].SetAlive(false);
                     grid[x, y].GetComponent<SpriteRenderer>().enabled = false;
                 }
-                RemoveYellowCells();
+                removeYellowCells();
 
             }
         }
@@ -431,7 +427,7 @@ public class Game : MonoBehaviour
         }
     }
     //my code to create trail (help from alistair)
-    private void RemoveYellowCells()
+    private void removeYellowCells()
     {
         for (int i = 0; i < yellowCells.Count; i++)
         {

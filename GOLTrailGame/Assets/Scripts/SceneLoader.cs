@@ -5,9 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+
+    //This is the code used for my GUI.
     public void LoadGame()
     {
         SceneManager.LoadScene("GOL");
+       
     }
 
     public void LoadMenu()
