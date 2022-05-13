@@ -10,10 +10,9 @@ public class Game : MonoBehaviour
     private static int SCREEN_WIDTH = 64; //- 1024 pixels
     private static int SCREEN_HEIGHT = 48; //- 768 pixels
 
-
     private float speed = 0.1f;
 
-    private float timer = 0;
+        private float timer = 0;
 
     public bool SimulationEnabled = false;
 
@@ -227,13 +226,14 @@ public class Game : MonoBehaviour
             }
 
         }
+        //around the edge
         if (type == 7)
         {
 
             for (int y = 0; y < SCREEN_HEIGHT; y++)
             {
                 for (int x = 0; x < SCREEN_WIDTH; x++)
-                    {
+                {
 
                     if (y == 0 || y == 47 || x == 0 || x == 63)
                     {

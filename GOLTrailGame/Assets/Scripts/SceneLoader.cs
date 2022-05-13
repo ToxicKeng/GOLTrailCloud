@@ -10,7 +10,6 @@ public class SceneLoader : MonoBehaviour
     public void LoadGame()
     {
         SceneManager.LoadScene("GOL");
-       
     }
 
     public void LoadMenu()
@@ -21,7 +20,6 @@ public class SceneLoader : MonoBehaviour
     {
         Application.Quit();
         Debug.Log("Quit!");
-
     }
 
 }
